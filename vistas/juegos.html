@@ -1,0 +1,26 @@
+<br>
+
+<h2>Resultados de juegos por "{{query}}"</h2>
+<div class="grid" ng-if="games">
+	<div ng-repeat="game in games" class="grid-item">
+		<a href="#/juego/{{game.name}}">
+			<div>
+				<img src="{{game.box.large}}" class="img-responsive">
+			</div>
+			<div>
+				<p class="game-data info">{{game.name}}</p>
+				<p class="game-data info">{{game.viewers + ' ' + game.palabra}}</p>
+			</div>
+		</a>
+	</div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+	<div class="grid-item"></div>
+</div>
+<div ng-show="!games">
+	<h4>No hay resultados para esta búsqueda</h4>
+</div>

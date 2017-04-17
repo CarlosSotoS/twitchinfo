@@ -1,0 +1,31 @@
+<br><br>
+<h2 class="text-center">Streams Más Vistos en el momento</h2>
+<table class="table table-striped">
+	<thead>
+		<th>Logo</th>
+		<th ng-click="order('channel.name')">Nombre
+			<span ng-show="column == 'channel.name' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'channel.name' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th ng-click="order('channel.game')">Juego
+			<span ng-show="column == 'channel.game' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'channel.game' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th ng-click="order('channel.status')">Estado
+			<span ng-show="column == 'channel.status' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'channel.status' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th>Visualizador</th>
+		<th ng-click="order('channel.viewers')">Espectadores</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="streamer in streams | orderBy:column:direction">
+			<td><img src="{{streamer.channel.logo}}" height="60" width="60"></td>
+			<td><a href="#/canal/{{streamer.channel.name}}">{{streamer.channel.display_name}}</a></td>
+			<td><a href="#/juego/{{streamer.channel.game}}">{{streamer.channel.game}}</a></td>
+			<td>{{streamer.channel.status}}</td>
+			<td><a href="#/visor/{{streamer.channel.name}}">Ver la retransmisión de {{streamer.channel.display_name}}</a></td>
+			<td>{{streamer.viewers}}</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,48 @@
+<br>
+<h2>Resultados de canales por "{{query}}"</h2>
+<table class="table table-striped" ng-if="channels">
+	<thead>
+		<th>Logo</th>
+		<th ng-click="order('name')">Nombre
+			<span ng-show="column == 'name' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'name' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th ng-click="order('game')">Juego
+			<span ng-show="column == 'game' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'game' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th ng-click="order('status')">Estado
+			<span ng-show="column == 'status' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'status' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+		<th ng-click="order('stream')">Visualizador
+			<span ng-show="column == 'stream' && direction == false" class="glyphicon glyphicon-arrow-down"></span>
+			<span ng-show="column == 'stream' && direction == true" class="glyphicon glyphicon-arrow-up"></span>
+		</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="channel in channels | orderBy:column:direction">
+			<td><img src="{{channel.logo}}" height="60" width="60"></td>
+			<td><a href="#/canal/{{channel.name}}">{{channel.display_name}}</a></td>
+			<td ng-if="channel.game"><a href="#/juego/{{channel.game}}">{{channel.game}}</a></td>
+			<td ng-if="!channel.game">No está jugando a ningún juego</td>
+			<td>{{channel.status || "No hay estado disponible"}}</td>
+			<td ng-if="channel.stream"><a href="#/visor/{{channel.name}}">Ver la retransmisión de {{channel.display_name}}</a></td>
+			<td ng-if="!channel.stream">{{channel.display_name}} no está retransmitiendo en este momento</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="row">
+	<center>
+		<a href="#/canales/{{query}}/{{anterior.offset}}" ng-show="anterior.link">
+			<button type="button" class="btn btn-success">Anterior</button>
+		</a>
+		<a href="#/canales/{{query}}/{{siguiente.offset}}" ng-show="siguiente.link">
+			<button type="button" class="btn btn-success">Siguiente</button>
+		</a>
+	</center>
+</div>
+<div ng-if="!channels">
+	<h4>No hay resultados para esta búsqueda<h4>
+</div>

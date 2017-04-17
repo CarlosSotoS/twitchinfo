@@ -1,0 +1,70 @@
+<br>
+<div ng-if="channel">
+	<h2 class="text-center">
+		Canal de {{channel.display_name}} 
+		<button id="favoritos" type="button" ng-click="toggleFavs(channel.name,channel.display_name)">{{btnFavTxt}} favoritos</button>
+	</h2>
+	<table class="table table-striped">
+		<thead>
+			<th>Logo</th>
+			<th>Nombre</th>
+			<th>Partner</th>
+			<th>Juego</th>
+			<th>Estado</th>
+			<th>Seguidores</th>
+			<th>Visualizador</th>
+			<th ng-if="stream">Espectadores</th>
+		</thead>
+		<tbody>
+			<tr ng-model="channel">
+				<td><img src="{{channel.logo}}" height="60" width="60"></td>
+				<td>{{channel.display_name}}</td>
+				<td>
+					<span ng-if="channel.partner" class="glyphicon glyphicon-star">Si</span>
+					<span ng-if="!channel.partner">No</span>
+				</td>
+				<td ng-if="channel.game"><a href="#/juego/{{channel.game}}">{{channel.game}}</a></td>
+				<td ng-if="!channel.game">No está jugando a ningún juego</td>
+				<td>{{channel.status || "No hay estado disponible"}}</td>
+				<td><span><img src="{{susImg}}"></span>  {{channel.followers}}</td>
+				<td ng-if="stream"><a href="#/visor/{{channel.name}}">Ver la retransmisión de {{channel.display_name}}</a></td>
+				<td ng-if="!stream">{{channel.display_name}} no está retransmitiendo en este momento</td>
+				<td ng-if="stream">{{stream.viewers}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Anteriores retransmisiones</h2>
+	<div class="grid" ng-if="info._total">
+		<div ng-repeat="video in videos" class="grid-item2">
+			<div class="game-item">
+				<a href="{{video.url}}">
+					<img ng-if="video.thumbnails[0].url" src="{{video.thumbnails[0].url}}" class="img-responsive">
+					<img ng-if="!video.thumbnails[0].url" src="imagenes/noImage.png" class="img-responsive">
+					<div>
+						<p class="info">Juego: {{video.game}}</p>
+						<p class="info">Título: {{video.title}}</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+		<div class="grid-item2"></div>
+	</div>
+	<div class="row">
+		<center>
+			<a href="#/canal/{{channel.name}}/{{anterior.offset}}" ng-show="anterior.link">
+				<button type="button" class="btn btn-success">Anterior</button>
+			</a>
+			<a href="#/canal/{{channel.name}}/{{siguiente.offset}}" ng-show="siguiente.link">
+				<button type="button" class="btn btn-success">Siguiente</button>
+			</a>
+		</center>
+	</div>
+	<h4 ng-if="!info._total">No hay ningún video de este canal.</h4>
+</div>
+<h2 ng-if="!channel">No existe el canal introducido</h2>
